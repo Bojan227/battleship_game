@@ -1,5 +1,5 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -28,9 +28,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [
-                            ['@babel/preset-env', { targets: 'defaults' }],
-                        ],
+                        presets: [['@babel/preset-env', {targets: 'defaults'}]],
                     },
                 },
             },
@@ -39,7 +37,7 @@ module.exports = {
                 use: [
                     {
                         loader: 'html-loader',
-                        options: { minimize: true },
+                        options: {minimize: true},
                     },
                 ],
             },
@@ -52,4 +50,4 @@ module.exports = {
     devServer: {
         static: './dist',
     },
-}
+};
