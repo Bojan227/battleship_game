@@ -10,6 +10,12 @@
         ],
         "no-console": "off",
         "no-unused-vars": "warn",
-        "no-undef": "off"
+        "no-undef": "off",
+        "no-shadow": "off",
+        "consistent-return": "off",
+        "no-param-reassign": "off",
+        "no-return-assign": "off",
+        "guard-for-in": "off",
+        "no-restricted-syntax": "off"
     }
 }
