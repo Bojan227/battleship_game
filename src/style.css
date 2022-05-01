@@ -1,0 +1,18 @@
+h1 {
+    color: pink;
+}
+.container {
+    display: flex;
+    gap: 20px;
+}
+.user-board,
+.enemy-board {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+}
+.user-board > *,
+.enemy-board > * {
+    border: 1px solid aqua;
+    text-align: center;
+}

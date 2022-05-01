@@ -16,6 +16,8 @@
         "no-param-reassign": "off",
         "no-return-assign": "off",
         "guard-for-in": "off",
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "no-unused-expressions": "off",
+        "no-loop-func": "off"
     }
 }
