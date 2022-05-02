@@ -21,8 +21,37 @@ const dom = (() => {
         }
     };
 
+    const displayShips = (coordArr) => {
+        coordArr.forEach((coord) => {
+            const shipDiv = document.createElement('div');
+            shipDiv.classList.add('fill');
+            shipDiv.draggable = 'true';
+            const [x, y, z, d] = coord;
+            const firstDiv = document.querySelector(
+                `.user-board>[data-x="${x}"][data-y="${y}"]`
+            );
+
+            if (d === 'h') {
+                const shipWidth = z * 40;
+                shipDiv.style.width = `${shipWidth}px`;
+                shipDiv.style.height = '40px';
+                shipDiv.setAttribute('data-direction', 'h');
+
+                firstDiv.appendChild(shipDiv);
+            } else {
+                const shipHeight = z * 40;
+                shipDiv.style.width = '40px';
+                shipDiv.style.height = `${shipHeight}px`;
+                shipDiv.setAttribute('data-direction', 'v');
+
+                firstDiv.appendChild(shipDiv);
+            }
+        });
+    };
+
     return {
         createBoard,
+        displayShips,
     };
 })();
 
