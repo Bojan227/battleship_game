@@ -51,6 +51,11 @@ const gameFlow = (() => {
 
                 computerPlayer.receiveAttack(x, y);
 
+                if (e.target.children.length > 0) {
+                    return;
+                }
+
+                console.log(e.target.children.length);
                 if (e.target.dataset.ship !== '') {
                     e.target.append(xAttack);
                     e.target.style.border = '2px solid #991B1B';
