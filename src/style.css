@@ -22,3 +22,23 @@ h1 {
     border: 1px solid aqua;
     text-align: center;
 }
+
+.user-board {
+    z-index: 0;
+}
+.user-board > div,
+.enemy-board > div {
+    position: relative;
+}
+.user-board > div > h3,
+.enemy-board > div > h3 {
+    z-index: 1000;
+}
+.user-board > div > div {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    margin: -2.5px;
+    border: 2px solid #00f;
+    background: rgba(0, 0, 255, 0.03);
+}

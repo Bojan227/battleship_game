@@ -4,7 +4,7 @@ import dom from './dom';
 import styles from './style.css';
 
 const gameFlow = (() => {
-    const {createBoard} = dom;
+    const {createBoard, displayShips} = dom;
     const container = document.querySelector('.container');
     const mainBoard = document.querySelector('.user-board');
     const enemyBoard = document.querySelector('.enemy-board');
@@ -28,5 +28,6 @@ const gameFlow = (() => {
     createBoard(mainPlayer.getArray(), mainBoard);
     createBoard(mainPlayer.getArray(), enemyBoard);
 
+    displayShips(mainPlayerCoord);
     console.log(mainPlayer.getArray());
 })();
