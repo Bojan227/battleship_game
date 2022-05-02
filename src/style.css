@@ -48,7 +48,6 @@ h1 {
     content: '';
     position: absolute;
 
-    z-index: 1000;
     top: 7px;
     left: 15px;
     width: 5px;

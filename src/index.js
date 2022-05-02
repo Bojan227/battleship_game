@@ -1,5 +1,6 @@
 import gameboard from './gameboardFactory';
 import {removePreviousShipCoord, placeMultipleShips} from './helperFunctions';
+import generateRandomNumbers from './computerMoves';
 import dom from './dom';
 import styles from './style.css';
 
@@ -51,6 +52,11 @@ const gameFlow = (() => {
 
                 computerPlayer.receiveAttack(x, y);
 
+                if (e.target.children.length > 0) {
+                    return;
+                }
+
+                console.log(e.target.children.length);
                 if (e.target.dataset.ship !== '') {
                     e.target.append(xAttack);
                     e.target.style.border = '2px solid #991B1B';
@@ -62,9 +68,10 @@ const gameFlow = (() => {
                 computerPlayer.checkWin(winMsg, 'Computer');
 
                 // computer moves
-                // const [coordX, coordY] = generateRandomNumbers(enemyCoord);
+                const [coordX, coordY] = generateRandomNumbers(enemyCoord);
+                console.log(coordX, coordY);
 
-                // mainPlayer.receiveAttack(coordX, coordY);
+                mainPlayer.receiveAttack(coordX, coordY);
 
                 // mainBoard.innerHTML = '';
                 // displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
