@@ -33,4 +33,4 @@ function generateRandomNumbers(mainCoord) {
     return coord;
 }
 
-export {removePreviousShipCoord, placeMultipleShips};
+export {removePreviousShipCoord, placeMultipleShips, generateRandomNumbers};
