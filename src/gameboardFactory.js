@@ -30,7 +30,7 @@ const gameboard = () => {
         if (typeof gameboardArray[x][y] === 'number') {
             const shipLength = gameboardArray[x][y];
 
-            shipArray.find((x) => x.length === shipLength).hit(); // length goes down by one
+            shipArray.find((x) => x.length === shipLength).hit();
             gameboardArray[x][y] = 'x';
         } else if (gameboardArray[x][y] === 'x') {
             return;

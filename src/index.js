@@ -1,10 +1,11 @@
 import gameboard from './gameboardFactory';
 import {removePreviousShipCoord, placeMultipleShips} from './helperFunctions';
+import generateRandomNumbers from './computerMoves';
 import dom from './dom';
 import styles from './style.css';
 
 const gameFlow = (() => {
-    const {createBoard, displayShips} = dom;
+    const {createBoard, displayShips, displayEnemyAttacks} = dom;
     const container = document.querySelector('.container');
     const mainBoard = document.querySelector('.user-board');
     const enemyBoard = document.querySelector('.enemy-board');
@@ -31,7 +32,6 @@ const gameFlow = (() => {
     createBoard(mainPlayer.getArray(), enemyBoard);
 
     displayShips(mainPlayerCoord);
-    console.log(mainPlayer.getArray());
 
     const handleAttacks = () => {
         container.addEventListener('click', (e) => {
@@ -54,7 +54,6 @@ const gameFlow = (() => {
                 if (e.target.children.length > 0) {
                     return;
                 }
-
                 console.log(e.target.children.length);
                 if (e.target.dataset.ship !== '') {
                     e.target.append(xAttack);
@@ -72,10 +71,9 @@ const gameFlow = (() => {
 
                 mainPlayer.receiveAttack(coordX, coordY);
 
-                // mainBoard.innerHTML = '';
-                // displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
-                // displayShips(mainPlayerCoord);
-                // mainPlayer.checkWin(winMsg, 'User');
+                displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
+                displayShips(mainPlayerCoord);
+                mainPlayer.checkWin(winMsg, 'User');
             }
         });
     };

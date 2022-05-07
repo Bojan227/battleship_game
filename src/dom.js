@@ -80,6 +80,7 @@ const dom = (() => {
     return {
         createBoard,
         displayShips,
+        displayEnemyAttacks,
     };
 })();
 
