@@ -29,4 +29,46 @@ const gameflow = (() => {
     placeMultipleShips(mainPlayerCoord, mainPlayer);
     createBoard(mainPlayer.getArray(), mainBoard);
     displayShips(mainPlayerCoord);
+
+    function handleAttacks() {
+        container.addEventListener('click', (e) => {
+            if (e.target.className === 'container') return;
+            if (e.target.parentElement.className === 'user-board') return;
+            const x = parseInt(e.target.dataset.x);
+            const y = parseInt(e.target.dataset.y);
+
+            if (e.target.parentElement.className === 'enemy-board') {
+                const xAttack = document.createElement('h3');
+                xAttack.classList.add('x');
+
+                const emptyAttack = document.createElement('h3');
+                emptyAttack.classList.add('empty-attack');
+
+                computerPlayer.receiveAttack(x, y);
+
+                if (e.target.children.length > 0) {
+                    return;
+                }
+
+                if (e.target.dataset.ship !== '') {
+                    e.target.append(xAttack);
+                    e.target.style.border = '2px solid #991B1B';
+                } else if (e.target.dataset.ship === '') {
+                    e.target.append(emptyAttack);
+                    e.target.style.backgroundColor = '#E4E4E7';
+                }
+
+                computerPlayer.checkWin(winMsg, 'Computer');
+
+                // computer moves
+                const [coordX, coordY] = generateRandomNumbers(enemyCoord);
+
+                mainPlayer.receiveAttack(coordX, coordY);
+
+                displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
+                displayShips(mainPlayerCoord);
+                mainPlayer.checkWin(winMsg, 'User');
+            }
+        });
+    }
 })();
