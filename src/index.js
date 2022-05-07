@@ -4,7 +4,7 @@ import domElements from './dom';
 import styles from './style.css';
 
 const gameflow = (() => {
-    const {createBoard} = domElements;
+    const {createBoard, displayShips} = domElements;
     const container = document.querySelector('.container');
     const mainBoard = document.querySelector('.user-board');
     const enemyBoard = document.querySelector('.enemy-board');
@@ -28,4 +28,5 @@ const gameflow = (() => {
 
     placeMultipleShips(mainPlayerCoord, mainPlayer);
     createBoard(mainPlayer.getArray(), mainBoard);
+    displayShips(mainPlayerCoord);
 })();
