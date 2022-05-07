@@ -67,9 +67,10 @@ const gameFlow = (() => {
                 computerPlayer.checkWin(winMsg, 'Computer');
 
                 // computer moves
-                // const [coordX, coordY] = generateRandomNumbers(enemyCoord);
+                const [coordX, coordY] = generateRandomNumbers(enemyCoord);
+                console.log(coordX, coordY);
 
-                // mainPlayer.receiveAttack(coordX, coordY);
+                mainPlayer.receiveAttack(coordX, coordY);
 
                 // mainBoard.innerHTML = '';
                 // displayEnemyAttacks(mainPlayer.getArray(), mainBoard);

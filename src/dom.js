@@ -21,6 +21,34 @@ const dom = (() => {
         }
     };
 
+    const displayEnemyAttacks = (gameArr, container) => {
+        for (let i = 0; i < 10; i += 1) {
+            gameArr[i].forEach((element, n) => {
+                const squareDiv = document.createElement('div');
+                squareDiv.setAttribute('data-x', i);
+                squareDiv.setAttribute('data-y', n);
+
+                const xAttack = document.createElement('h3');
+                xAttack.classList.add('x');
+
+                const emptyAttack = document.createElement('h3');
+                emptyAttack.classList.add('empty-attack');
+
+                if (typeof element === 'number') {
+                    squareDiv.textContent = '';
+                } else if (element === 'e') {
+                    squareDiv.append(emptyAttack);
+                    squareDiv.style.backgroundColor = '#E4E4E7';
+                } else if (element === 'x') {
+                    squareDiv.append(xAttack);
+                    squareDiv.style.border = '2px solid #991B1B';
+                }
+
+                container.appendChild(squareDiv);
+            });
+        }
+    };
+
     const displayShips = (coordArr) => {
         coordArr.forEach((coord) => {
             const shipDiv = document.createElement('div');
