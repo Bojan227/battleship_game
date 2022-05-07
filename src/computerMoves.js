@@ -109,4 +109,4 @@ function generateRandomPositions(z) {
     return [x, y, z, dir];
 }
 
-export default generateRandomNumbers;
+export {generateRandomNumbers, generateRandomPositions};

@@ -1,7 +1,7 @@
 import gameboard from './gameboardFactory';
 import placeMultipleShips from './helperFunctions';
 import domElements from './dom';
-import generateRandomNumbers from './computerMoves';
+import {generateRandomNumbers, generateRandomPositions} from './computerMoves';
 import styles from './style.css';
 
 const gameflow = (() => {
@@ -28,10 +28,14 @@ const gameflow = (() => {
     const computerPlayer = gameboard();
 
     placeMultipleShips(mainPlayerCoord, mainPlayer);
-    placeMultipleShips(mainPlayerCoord, computerPlayer);
     createBoard(mainPlayer.getArray(), mainBoard);
-    createBoard(computerPlayer.getArray(), enemyBoard);
     displayShips(mainPlayerCoord);
+    for (let i = 1; i <= 6; i += 1) {
+        const [x, y, z, d] = generateRandomPositions(i, computerPlayer);
+        computerPlayer.placeShip(x, y, z, d);
+        console.log(computerPlayer.getArray());
+        createBoard(computerPlayer.getArray(), enemyBoard);
+    }
 
     function handleAttacks() {
         container.addEventListener('click', (e) => {
