@@ -1,9 +1,6 @@
 import gameboard from './gameboardFactory';
-import {
-    removePreviousShipCoord,
-    placeMultipleShips,
-    generateRandomNumbers,
-} from './helperFunctions';
+import {removePreviousShipCoord, placeMultipleShips} from './helperFunctions';
+import generateRandomNumbers from './computerMoves';
 import dom from './dom';
 import styles from './style.css';
 

@@ -14,3 +14,5 @@ function generateRandomNumbers(mainCoord) {
     mainCoord.push(coord);
     return coord;
 }
+
+export default generateRandomNumbers;
