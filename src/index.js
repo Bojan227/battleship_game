@@ -1,6 +1,7 @@
 import gameboard from './gameboardFactory';
 import placeMultipleShips from './helperFunctions';
 import domElements from './dom';
+import generateRandomNumbers from './computerMoves';
 import styles from './style.css';
 
 const gameflow = (() => {
@@ -27,7 +28,9 @@ const gameflow = (() => {
     const computerPlayer = gameboard();
 
     placeMultipleShips(mainPlayerCoord, mainPlayer);
+    placeMultipleShips(mainPlayerCoord, computerPlayer);
     createBoard(mainPlayer.getArray(), mainBoard);
+    createBoard(computerPlayer.getArray(), enemyBoard);
     displayShips(mainPlayerCoord);
 
     function handleAttacks() {
@@ -71,4 +74,12 @@ const gameflow = (() => {
             }
         });
     }
+
+    startGameButton.addEventListener('click', () => {
+        // updateGameboard();
+        // startGameMsg.dataset.status = 'disable';
+        // startGameMsg.classList.add('invisible');
+        // startGameButton.classList.add('invisible');
+        handleAttacks();
+    });
 })();
