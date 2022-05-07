@@ -4,7 +4,7 @@ import domElements from './dom';
 import styles from './style.css';
 
 const gameflow = (() => {
-    const {createBoard, displayShips} = domElements;
+    const {createBoard, displayShips, displayEnemyAttacks} = domElements;
     const container = document.querySelector('.container');
     const mainBoard = document.querySelector('.user-board');
     const enemyBoard = document.querySelector('.enemy-board');
