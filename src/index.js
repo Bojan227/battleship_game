@@ -1,8 +1,10 @@
 import gameboard from './gameboardFactory';
 import placeMultipleShips from './helperFunctions';
+import domElements from './dom';
 import styles from './style.css';
 
 const gameflow = (() => {
+    const {createBoard} = domElements;
     const container = document.querySelector('.container');
     const mainBoard = document.querySelector('.user-board');
     const enemyBoard = document.querySelector('.enemy-board');
@@ -23,4 +25,7 @@ const gameflow = (() => {
     const enemyCoord = [];
     const mainPlayer = gameboard();
     const computerPlayer = gameboard();
+
+    placeMultipleShips(mainPlayerCoord, mainPlayer);
+    createBoard(mainPlayer.getArray(), mainBoard);
 })();
