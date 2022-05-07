@@ -22,6 +22,8 @@ const dom = (() => {
     };
 
     const displayEnemyAttacks = (gameArr, container) => {
+        container.innerHTML = '';
+
         for (let i = 0; i < 10; i += 1) {
             gameArr[i].forEach((element, n) => {
                 const squareDiv = document.createElement('div');
@@ -80,6 +82,7 @@ const dom = (() => {
     return {
         createBoard,
         displayShips,
+        displayEnemyAttacks,
     };
 })();
 
