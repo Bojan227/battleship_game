@@ -11,6 +11,7 @@ const gameflow = (() => {
     const enemyBoard = document.querySelector('.enemy-board');
     const startGameMsg = document.querySelector('.start-msg');
     const startGameButton = document.querySelector('.start-game');
+    const newGameBtn = document.querySelector('.new-game');
 
     const winMsg = document.querySelector('.win-msg');
     const currentPlayer = 'user';
@@ -246,13 +247,13 @@ const gameflow = (() => {
 
                 if (e.target.dataset.ship !== '') {
                     e.target.append(xAttack);
-                    e.target.style.border = '2px solid #991B1B';
+                    e.target.style.backgroundColor = '#E4E4E7';
                 } else if (e.target.dataset.ship === '') {
                     e.target.append(emptyAttack);
                     e.target.style.backgroundColor = '#E4E4E7';
                 }
 
-                computerPlayer.checkWin(winMsg, 'Computer');
+                computerPlayer.checkWin(winMsg);
 
                 // computer moves
                 const [coordX, coordY] = generateRandomNumbers(enemyCoord);
@@ -261,7 +262,7 @@ const gameflow = (() => {
 
                 displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
                 displayShips(mainPlayerCoord);
-                mainPlayer.checkWin(winMsg, 'User');
+                mainPlayer.checkWin(winMsg);
             }
         });
     }
@@ -273,9 +274,13 @@ const gameflow = (() => {
     startGameButton.addEventListener('click', () => {
         updateGameboard();
         startGameMsg.dataset.status = 'disable';
-        startGameMsg.classList.add('invisible');
-        startGameButton.classList.add('invisible');
+        startGameMsg.classList.add('no-visibility');
+        startGameButton.classList.add('no-visibility');
         handleAttacks();
+    });
+    const endGameScreen = document.querySelector('.endGame');
+    newGameBtn.addEventListener('click', () => {
+        endGameScreen.classList.add('no-visibility');
     });
     dragElements();
 })();

@@ -1,6 +1,8 @@
 import ship from './shipFactory';
 
 const gameboard = () => {
+    const endGameScreen = document.querySelector('.endGame');
+
     let gameboardArray = Array.from(Array(10), () => new Array(10).fill(''));
 
     const shipArray = [ship(3), ship(4), ship(2), ship(1), ship(5), ship(6)];
@@ -49,8 +51,13 @@ const gameboard = () => {
         return result.every((x) => x === true);
     }
 
-    function checkWin(winMsg, player) {
-        return checkSunk() ? (winMsg.textContent = `${player} lost`) : false;
+    function checkWin(winMsg) {
+        if (checkSunk()) {
+            endGameScreen.classList.remove('no-visibility');
+            winMsg.textContent = `You win`;
+        } else {
+            winMsg.textContent = `You win`;
+        }
     }
 
     function restartArray() {

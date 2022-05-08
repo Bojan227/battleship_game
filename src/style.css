@@ -4,18 +4,26 @@
     box-sizing: border-box;
 }
 
-h1 {
-    color: pink;
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    font-size: 25px;
 }
 .container {
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    gap: 50px;
 }
 .user-board,
 .enemy-board {
     display: grid;
-    grid-template-columns: repeat(10, 40px);
-    grid-template-rows: repeat(10, 40px);
+    grid-template-columns: repeat(10, 45px);
+    grid-template-rows: repeat(10, 45px);
 }
 .user-board > *,
 .enemy-board > * {
@@ -25,6 +33,10 @@ h1 {
 
 .user-board {
     z-index: 0;
+    border: 6px solid green;
+}
+.enemy-board {
+    border: 6px solid darkviolet;
 }
 .user-board > div,
 .enemy-board > div {
@@ -38,7 +50,7 @@ h1 {
     position: absolute;
     z-index: 1;
     top: 0;
-    margin: -2.5px;
+    margin: -1.5px;
     border: 2px solid #00f;
     background: rgba(0, 0, 255, 0.03);
 }
@@ -48,8 +60,8 @@ h1 {
     content: '';
     position: absolute;
 
-    top: 7px;
-    left: 15px;
+    top: 8px;
+    left: 18px;
     width: 5px;
     height: 25px;
     background-color: #991b1b;
@@ -71,4 +83,23 @@ h1 {
     height: 12px;
     background-color: #1f2937;
     border-radius: 8px;
+}
+.endGame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    color: whitesmoke;
+}
+
+.no-visibility {
+    display: none;
 }

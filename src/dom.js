@@ -43,7 +43,7 @@ const domElements = (() => {
                     squareDiv.style.backgroundColor = '#E4E4E7';
                 } else if (element === 'x') {
                     squareDiv.append(xAttack);
-                    squareDiv.style.border = '2px solid #991B1B';
+                    squareDiv.style.backgroundColor = '#E4E4E7';
                 }
 
                 container.appendChild(squareDiv);
@@ -62,15 +62,15 @@ const domElements = (() => {
             );
 
             if (d === 'h') {
-                const shipWidth = z * 40;
+                const shipWidth = z * 45;
                 shipDiv.style.width = `${shipWidth}px`;
-                shipDiv.style.height = '40px';
+                shipDiv.style.height = '45px';
                 shipDiv.setAttribute('data-direction', 'h');
 
                 firstDiv.appendChild(shipDiv);
             } else {
-                const shipHeight = z * 40;
-                shipDiv.style.width = '40px';
+                const shipHeight = z * 45;
+                shipDiv.style.width = '45px';
                 shipDiv.style.height = `${shipHeight}px`;
                 shipDiv.setAttribute('data-direction', 'v');
 

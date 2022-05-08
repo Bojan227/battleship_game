@@ -9,16 +9,19 @@
     <body>
         <header>
             <h1>Battleship</h1>
+            <h3 class="start-msg" data-status="active">Place your ships</h3>
         </header>
 
         <main>
-            <h3 class="start-msg" data-status="active">Place your ships</h3>
             <div class="container">
                 <div class="user-board"></div>
+                <button class="start-game">Start Game</button>
                 <div class="enemy-board"></div>
             </div>
-            <h2 class="win-msg"></h2>
-            <button class="start-game">Start Game</button>
+            <div class="endGame no-visibility">
+                <h2 class="win-msg"></h2>
+                <button class="new-game">New Game</button>
+            </div>
         </main>
     </body>
 </html>
