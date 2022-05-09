@@ -123,7 +123,7 @@ const gameflow = (() => {
             this.setAttribute('data-ln', e.target.parentElement.dataset.ship);
             this.setAttribute('data-dir', e.target.dataset.direction);
             this.setAttribute('data-select', 'true');
-            setTimeout(() => this.classList.add('invisible'));
+            setTimeout(() => this.classList.add('no-visibility'));
         }
 
         function dragEnd(e) {

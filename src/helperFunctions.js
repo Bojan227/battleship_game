@@ -89,16 +89,24 @@ const handleDragEvents = (playerCoord, player) => {
                 }
                 // Collection of busy cells around the ship
                 const collectBusyCells = [];
+                const collectChild = [];
                 result.forEach((val) => {
                     if (val != null) {
                         if (val.dataset.busy === 'busy') {
                             collectBusyCells.push(val);
                         }
+                        if (val.firstChild != null) {
+                            collectChild.push(val.firstChild);
+                        }
                     }
                 });
 
                 // If there are more busy cells than the ship's length return the ship to the old coordinates
-                if (collectBusyCells.length > length) {
+                console.log(collectChild);
+                if (
+                    collectBusyCells.length > length ||
+                    collectChild.length > 1
+                ) {
                     return true;
                 }
 
@@ -133,15 +141,19 @@ const handleDragEvents = (playerCoord, player) => {
                 }
 
                 const checkForShip = [];
+                const collectChild = [];
                 result.forEach((val) => {
                     if (val != null) {
                         if (val.dataset.busy === 'busy') {
                             checkForShip.push(val);
                         }
+                        if (val.firstChild != null) {
+                            collectChild.push(val.firstChild);
+                        }
                     }
                 });
-
-                if (checkForShip.length > length) {
+                console.log(collectChild);
+                if (checkForShip.length > length || collectChild.length > 1) {
                     return true;
                 }
             }
