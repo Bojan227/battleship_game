@@ -24,15 +24,17 @@ const gameflow = (() => {
         [2, 1, 5, 'v'],
         [9, 0, 6, 'h'],
     ];
-    const enemyCoord = [];
-    const mainPlayer = gameboard();
-    const computerPlayer = gameboard();
+    let enemyCoord = [];
+    let randomCoor = [];
+    let mainPlayer = gameboard();
+    let computerPlayer = gameboard();
 
     placeMultipleShips(mainPlayerCoord, mainPlayer);
     createBoard(mainPlayer.getArray(), mainBoard);
     displayShips(mainPlayerCoord);
-    for (let i = 1; i <= 6; i += 1) {
-        const [x, y, z, d] = generateRandomPositions(i, computerPlayer);
+
+    for (let i = 6; i >= 1; i -= 1) {
+        const [x, y, z, d] = generateRandomPositions(i);
         computerPlayer.placeShip(x, y, z, d);
         console.log(computerPlayer.getArray());
         createBoard(computerPlayer.getArray(), enemyBoard);
@@ -281,6 +283,19 @@ const gameflow = (() => {
     const endGameScreen = document.querySelector('.endGame');
     newGameBtn.addEventListener('click', () => {
         endGameScreen.classList.add('no-visibility');
+        enemyCoord = [];
+        randomCoor = [];
+        mainPlayer = gameboard();
+        placeMultipleShips(mainPlayerCoord, mainPlayer);
+        createBoard(mainPlayer.getArray(), mainBoard);
+        displayShips(mainPlayerCoord);
+        for (let i = 1; i <= 6; i += 1) {
+            computerPlayer = gameboard();
+            const [x, y, z, d] = generateRandomPositions(i, randomCoor);
+            computerPlayer.placeShip(x, y, z, d);
+            console.log(computerPlayer.getArray());
+            createBoard(computerPlayer.getArray(), enemyBoard);
+        }
     });
     dragElements();
 })();
