@@ -25,7 +25,7 @@ const gameflow = (() => {
         [9, 0, 6, 'h'],
     ];
     let enemyCoord = [];
-    const randomCoor = [];
+
     const mainPlayer = gameboard();
     const computerPlayer = gameboard();
 
@@ -282,7 +282,7 @@ const gameflow = (() => {
         handleAttacks();
     });
     const endGameScreen = document.querySelector('.endGame');
-    endGameScreen.addEventListener('click', () => {
+    newGameBtn.addEventListener('click', () => {
         startGameMsg.classList.remove('no-visibility');
         startGameButton.classList.remove('no-visibility');
         endGameScreen.classList.add('no-visibility');
