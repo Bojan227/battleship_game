@@ -102,7 +102,7 @@ const handleDragEvents = (playerCoord, player) => {
                 });
 
                 // If there are more busy cells than the ship's length return the ship to the old coordinates
-                console.log(collectChild);
+
                 if (
                     collectBusyCells.length > length ||
                     collectChild.length > 1

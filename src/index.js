@@ -33,13 +33,6 @@ const gameflow = (() => {
     createBoard(mainPlayer.getArray(), mainBoard);
     displayShips(mainPlayerCoord);
 
-    for (let i = 6; i >= 1; i -= 1) {
-        const [x, y, z, d] = generateRandomPositions(i);
-        computerPlayer.placeShip(x, y, z, d);
-        console.log(computerPlayer.getArray());
-        createBoard(computerPlayer.getArray(), enemyBoard);
-    }
-
     const dragElements = () => {
         const ships = document.querySelectorAll('.fill');
         const empties = document.querySelectorAll('.empty');
@@ -278,6 +271,13 @@ const gameflow = (() => {
         startGameMsg.dataset.status = 'disable';
         startGameMsg.classList.add('no-visibility');
         startGameButton.classList.add('no-visibility');
+        for (let i = 6; i >= 1; i -= 1) {
+            const [x, y, z, d] = generateRandomPositions(i);
+            computerPlayer.placeShip(x, y, z, d);
+            console.log(computerPlayer.getArray());
+            createBoard(computerPlayer.getArray(), enemyBoard);
+        }
+
         handleAttacks();
     });
     const endGameScreen = document.querySelector('.endGame');
