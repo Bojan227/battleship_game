@@ -100,6 +100,21 @@ header {
     color: whitesmoke;
 }
 
+.new-game {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.new-game:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 10px 20px;
+}
+
 .no-visibility {
     display: none;
 }
