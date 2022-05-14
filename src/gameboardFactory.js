@@ -5,7 +5,7 @@ const gameboard = () => {
 
     let gameboardArray = Array.from(Array(10), () => new Array(10).fill(''));
 
-    const shipArray = [ship(3), ship(4), ship(2), ship(1), ship(5), ship(6)];
+    let shipArray = [ship(3), ship(4), ship(2), ship(1), ship(5), ship(6)];
 
     function placeShip(x, y, length, direction) {
         let i = 0;
@@ -65,6 +65,10 @@ const gameboard = () => {
         gameboardArray = Array.from(Array(10), () => new Array(10).fill(''));
         return gameboardArray;
     }
+
+    function restartShipsHealth() {
+        shipArray = [ship(3), ship(4), ship(1), ship(2), ship(5), ship(6)];
+    }
     function getArray() {
         return gameboardArray;
     }
@@ -76,6 +80,7 @@ const gameboard = () => {
         checkWin,
         restartArray,
         getArray,
+        restartShipsHealth,
     };
 };
 
