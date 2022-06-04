@@ -53,7 +53,7 @@ const gameboard = () => {
         const endGameScreen = document.querySelector('.endGame');
         if (checkSunk()) {
             endGameScreen.classList.remove('no-visibility');
-            winMsg.textContent = `You win`;
+            winMsg.textContent = `You Lost`;
         } else {
             winMsg.textContent = `You win`;
         }

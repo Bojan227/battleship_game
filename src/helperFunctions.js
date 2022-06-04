@@ -24,8 +24,8 @@ const handleDragEvents = (playerCoord, player) => {
         function removePreviousShipCoord() {
             mainCoord.forEach((coord) => {
                 if (
-                    JSON.stringify(coord) ===
-                    JSON.stringify([oldXCoord, oldYCoord, length, oldDirection])
+                    coord.toString() ===
+                    [oldXCoord, oldYCoord, length, oldDirection].toString()
                 ) {
                     mainCoord.splice(mainCoord.indexOf(coord), 1);
                 }

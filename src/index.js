@@ -14,7 +14,6 @@ const gameflow = (() => {
     const newGameBtn = document.querySelector('.new-game');
 
     const winMsg = document.querySelector('.win-msg');
-    const currentPlayer = 'user';
 
     const mainPlayerCoord = [
         [0, 5, 3, 'h'],
@@ -221,12 +220,40 @@ const gameflow = (() => {
         }
     };
 
+    let currentCoord = [];
+    let rightCounter = 1;
+    let leftCounter = 1;
+    let topCounter = 1;
+    let botCounter = 1;
+
+    // One bug where computer player making one less move
+
     function handleAttacks() {
         container.addEventListener('click', (e) => {
             if (e.target.className === 'container') return;
             if (e.target.parentElement.className === 'user-board') return;
+            if (startGameMsg.dataset.status === 'active') {
+                return;
+            }
             const x = parseInt(e.target.dataset.x);
             const y = parseInt(e.target.dataset.y);
+
+            function randomAttack() {
+                const [coordX, coordY] = generateRandomNumbers(enemyCoord);
+
+                mainPlayer.receiveAttack(coordX, coordY);
+                displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
+                displayShips(mainPlayerCoord);
+                mainPlayer.checkWin(winMsg);
+
+                const currentAttackCell = mainBoard.querySelector(
+                    `[data-x="${coordX}"][data-y="${coordY}"]`
+                );
+
+                if (currentAttackCell.firstChild.className === 'x') {
+                    currentCoord = [coordX, coordY];
+                }
+            }
 
             if (e.target.parentElement.className === 'enemy-board') {
                 const xAttack = document.createElement('h3');
@@ -250,18 +277,356 @@ const gameflow = (() => {
                 }
 
                 computerPlayer.checkWin(winMsg);
+                // need to get direction of the ship
 
-                // computer moves
-                const [coordX, coordY] = generateRandomNumbers(enemyCoord);
+                if (currentCoord.length < 1) {
+                    const [coordX, coordY] = generateRandomNumbers(enemyCoord);
 
-                mainPlayer.receiveAttack(coordX, coordY);
+                    mainPlayer.receiveAttack(coordX, coordY);
+                    displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
+                    displayShips(mainPlayerCoord);
+                    mainPlayer.checkWin(winMsg);
 
-                displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
-                displayShips(mainPlayerCoord);
-                mainPlayer.checkWin(winMsg);
+                    const currentAttackCell = mainBoard.querySelector(
+                        `[data-x="${coordX}"][data-y="${coordY}"]`
+                    );
+
+                    if (currentAttackCell.firstChild.className === 'x') {
+                        currentCoord = [coordX, coordY];
+                    }
+                } else if (currentCoord.length > 1) {
+                    const [a, b] = currentCoord;
+
+                    const rightCell = mainBoard.querySelector(
+                        `[data-x="${a}"][data-y="${b + 1}"]`
+                    );
+                    const previousRightCell = mainBoard.querySelector(
+                        `[data-x="${a}"][data-y="${b + rightCounter - 1}"]`
+                    );
+                    const nextRightCell = mainBoard.querySelector(
+                        `[data-x="${a}"][data-y="${b + (rightCounter + 1)}"]`
+                    );
+                    let moveToLeft = 0;
+
+                    if (moveToLeft !== 0) {
+                        return goLeft();
+                    }
+                    if (rightCell === null) {
+                        return goLeft();
+                    }
+                    if (
+                        rightCell.firstChild === null ||
+                        rightCell.firstChild.className === 'fill'
+                    ) {
+                        mainPlayer.receiveAttack(a, b + rightCounter);
+                        enemyCoord.push([a, b + rightCounter]);
+                        displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
+                        displayShips(mainPlayerCoord);
+                        mainPlayer.checkWin(winMsg);
+                        rightCounter += 1;
+                        if (
+                            nextRightCell.firstChild !== null &&
+                            nextRightCell.firstChild.className ===
+                                'empty-attack'
+                        ) {
+                            moveToLeft += 1;
+                        }
+                    } else if (
+                        rightCell.firstChild !== null &&
+                        rightCell.firstChild.className === 'empty-attack'
+                    ) {
+                        return goLeft();
+                    } else if (
+                        rightCell.firstChild === null ||
+                        rightCell.firstChild.className === 'x'
+                    ) {
+                        if (previousRightCell.dataset.y === '9') {
+                            return goLeft();
+                        }
+
+                        if (
+                            previousRightCell.firstChild.className ===
+                            'empty-attack'
+                        ) {
+                            return goLeft();
+                        }
+
+                        mainPlayer.receiveAttack(a, b + rightCounter);
+                        enemyCoord.push([a, b + rightCounter]);
+                        displayEnemyAttacks(mainPlayer.getArray(), mainBoard);
+                        displayShips(mainPlayerCoord);
+                        mainPlayer.checkWin(winMsg);
+                        rightCounter += 1;
+                        if (
+                            nextRightCell.firstChild !== null &&
+                            nextRightCell.firstChild.className ===
+                                'empty-attack'
+                        ) {
+                            moveToLeft += 1;
+                        }
+                    }
+
+                    // start going right
+
+                    function goLeft() {
+                        const leftCell = mainBoard.querySelector(
+                            `[data-x="${a}"][data-y="${b - 1}"]`
+                        );
+                        const previousLeftCell = mainBoard.querySelector(
+                            `[data-x="${a}"][data-y="${b - leftCounter + 1}"]`
+                        );
+                        const nextLeftCell = mainBoard.querySelector(
+                            `[data-x="${a}"][data-y="${b - leftCounter - 1}"]`
+                        );
+                        let moveToTop = 0;
+
+                        if (moveToTop !== 0) {
+                            return goTop();
+                        }
+                        if (leftCell === null) {
+                            return goTop();
+                        }
+                        if (
+                            leftCell.firstChild === null ||
+                            leftCell.firstChild.className === 'fill'
+                        ) {
+                            mainPlayer.receiveAttack(a, b - leftCounter);
+                            enemyCoord.push([a, b - leftCounter]);
+                            displayEnemyAttacks(
+                                mainPlayer.getArray(),
+                                mainBoard
+                            );
+                            displayShips(mainPlayerCoord);
+                            mainPlayer.checkWin(winMsg);
+                            leftCounter += 1;
+                            if (
+                                nextLeftCell.firstChild !== null &&
+                                nextLeftCell.firstChild.className ===
+                                    'empty-attack'
+                            ) {
+                                moveToTop += 1;
+                            }
+                        } else if (
+                            leftCell.firstChild !== null &&
+                            leftCell.firstChild.className === 'empty-attack'
+                        ) {
+                            return goTop();
+                        } else if (
+                            leftCell.firstChild === null ||
+                            leftCell.firstChild.className === 'x'
+                        ) {
+                            if (previousLeftCell.dataset.y === '0') {
+                                return goTop();
+                            }
+
+                            if (
+                                previousLeftCell.firstChild.className ===
+                                'empty-attack'
+                            ) {
+                                return goTop();
+                            }
+                            mainPlayer.receiveAttack(a, b - leftCounter);
+                            enemyCoord.push([a, b - leftCounter]);
+                            displayEnemyAttacks(
+                                mainPlayer.getArray(),
+                                mainBoard
+                            );
+                            displayShips(mainPlayerCoord);
+                            mainPlayer.checkWin(winMsg);
+                            leftCounter += 1;
+                            if (
+                                nextLeftCell.firstChild !== null &&
+                                nextLeftCell.firstChild.className ===
+                                    'empty-attack'
+                            ) {
+                                moveToTop += 1;
+                            }
+                        }
+                    }
+
+                    function goTop() {
+                        const topCell = mainBoard.querySelector(
+                            `[data-x="${a - 1}"][data-y="${b}"]`
+                        );
+                        const previousTopCell = mainBoard.querySelector(
+                            `[data-x="${a - topCounter + 1}"][data-y="${b}"]`
+                        );
+                        const nextTopCell = mainBoard.querySelector(
+                            `[data-x="${a - topCounter - 1}"][data-y="${b}"]`
+                        );
+                        let moveToBot = 0;
+
+                        if (moveToBot !== 0) {
+                            return goBot();
+                        }
+
+                        if (topCell === null) {
+                            return goBot();
+                        }
+                        if (
+                            topCell.firstChild === null ||
+                            topCell.firstChild.className === 'fill'
+                        ) {
+                            mainPlayer.receiveAttack(a - topCounter, b);
+                            enemyCoord.push([a - topCounter, b]);
+                            displayEnemyAttacks(
+                                mainPlayer.getArray(),
+                                mainBoard
+                            );
+                            displayShips(mainPlayerCoord);
+                            mainPlayer.checkWin(winMsg);
+                            topCounter += 1;
+                            if (
+                                nextTopCell.firstChild !== null &&
+                                nextTopCell.firstChild.className ===
+                                    'empty-attack'
+                            ) {
+                                moveToBot += 1;
+                            }
+                        } else if (
+                            topCell.firstChild !== null &&
+                            topCell.firstChild.className === 'empty-attack'
+                        ) {
+                            return goBot();
+                        } else if (
+                            topCell.firstChild === null ||
+                            topCell.firstChild.className === 'x'
+                        ) {
+                            if (previousTopCell.dataset.x === '0') {
+                                return goBot();
+                            }
+
+                            if (
+                                previousTopCell.firstChild.className ===
+                                'empty-attack'
+                            ) {
+                                return goBot();
+                            }
+                            mainPlayer.receiveAttack(a - topCounter, b);
+                            enemyCoord.push([a - topCounter, b]);
+                            displayEnemyAttacks(
+                                mainPlayer.getArray(),
+                                mainBoard
+                            );
+                            displayShips(mainPlayerCoord);
+                            mainPlayer.checkWin(winMsg);
+                            topCounter += 1;
+                            if (
+                                nextTopCell.firstChild !== null &&
+                                nextTopCell.firstChild.className ===
+                                    'empty-attack'
+                            ) {
+                                moveToBot += 1;
+                            }
+                        }
+                    }
+
+                    function goBot() {
+                        const botCell = mainBoard.querySelector(
+                            `[data-x="${a + 1}"][data-y="${b}"]`
+                        );
+                        const previousBotCell = mainBoard.querySelector(
+                            `[data-x="${a + botCounter - 1}"][data-y="${b}"]`
+                        );
+                        const nextBotCell = mainBoard.querySelector(
+                            `[data-x="${a + botCounter + 1}"][data-y="${b}"]`
+                        );
+                        let restart = 0;
+
+                        if (restart !== 0) {
+                            currentCoord = [];
+                            rightCounter = 1;
+                            leftCounter = 1;
+                            topCounter = 1;
+                            botCounter = 1;
+                            return randomAttack();
+                        }
+
+                        if (botCell === null) {
+                            currentCoord = [];
+                            rightCounter = 1;
+                            leftCounter = 1;
+                            topCounter = 1;
+                            botCounter = 1;
+                            return randomAttack();
+                        }
+                        if (
+                            botCell.firstChild === null ||
+                            botCell.firstChild.className === 'fill'
+                        ) {
+                            mainPlayer.receiveAttack(a + botCounter, b);
+                            enemyCoord.push([a + botCounter, b]);
+                            displayEnemyAttacks(
+                                mainPlayer.getArray(),
+                                mainBoard
+                            );
+                            displayShips(mainPlayerCoord);
+                            mainPlayer.checkWin(winMsg);
+                            botCounter += 1;
+                            if (
+                                nextBotCell.firstChild !== null &&
+                                nextBotCell.firstChild.className ===
+                                    'empty-attack'
+                            ) {
+                                restart += 1;
+                            }
+                        } else if (
+                            botCell.firstChild !== null &&
+                            botCell.firstChild.className === 'empty-attack'
+                        ) {
+                            currentCoord = [];
+                            rightCounter = 1;
+                            leftCounter = 1;
+                            topCounter = 1;
+                            botCounter = 1;
+                            return randomAttack();
+                        } else if (
+                            botCell.firstChild === null ||
+                            botCell.firstChild.className === 'x'
+                        ) {
+                            if (previousBotCell.dataset.x === '9') {
+                                currentCoord = [];
+                                rightCounter = 1;
+                                leftCounter = 1;
+                                topCounter = 1;
+                                botCounter = 1;
+                                return randomAttack();
+                            }
+
+                            if (
+                                previousBotCell.firstChild.className ===
+                                'empty-attack'
+                            ) {
+                                currentCoord = [];
+                                rightCounter = 1;
+                                leftCounter = 1;
+                                topCounter = 1;
+                                botCounter = 1;
+                                return randomAttack();
+                            }
+                            mainPlayer.receiveAttack(a + botCounter, b);
+                            enemyCoord.push([a + botCounter, b]);
+                            displayEnemyAttacks(
+                                mainPlayer.getArray(),
+                                mainBoard
+                            );
+                            displayShips(mainPlayerCoord);
+                            mainPlayer.checkWin(winMsg);
+                            botCounter += 1;
+                            if (
+                                nextBotCell.firstChild !== null &&
+                                nextBotCell.firstChild.className ===
+                                    'empty-attack'
+                            ) {
+                                restart += 1;
+                            }
+                        }
+                    }
+                }
             }
         });
     }
+
     function updateGameboard() {
         createBoard(mainPlayer.getArray(), mainBoard);
         displayShips(mainPlayerCoord);
@@ -275,7 +640,7 @@ const gameflow = (() => {
         for (let i = 6; i >= 1; i -= 1) {
             const [x, y, z, d] = generateRandomPositions(i);
             computerPlayer.placeShip(x, y, z, d);
-            console.log(computerPlayer.getArray());
+
             createBoard(computerPlayer.getArray(), enemyBoard);
         }
 
@@ -284,6 +649,7 @@ const gameflow = (() => {
     const endGameScreen = document.querySelector('.endGame');
     newGameBtn.addEventListener('click', () => {
         startGameMsg.classList.remove('no-visibility');
+        startGameMsg.dataset.status = 'active';
         startGameButton.classList.remove('no-visibility');
         endGameScreen.classList.add('no-visibility');
 
@@ -299,6 +665,11 @@ const gameflow = (() => {
         displayShips(mainPlayerCoord);
         createBoard(computerPlayer.getArray(), enemyBoard);
         dragElements();
+        currentCoord = [];
+        rightCounter = 1;
+        leftCounter = 1;
+        topCounter = 1;
+        botCounter = 1;
     });
     dragElements();
 })();
