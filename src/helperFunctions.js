@@ -152,7 +152,7 @@ const handleDragEvents = (playerCoord, player) => {
                         }
                     }
                 });
-                console.log(collectChild);
+
                 if (checkForShip.length > length || collectChild.length > 1) {
                     return true;
                 }

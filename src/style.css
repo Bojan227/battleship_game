@@ -17,13 +17,13 @@ header {
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-    gap: 50px;
+    gap: 20px;
 }
 .user-board,
 .enemy-board {
     display: grid;
-    grid-template-columns: repeat(10, 45px);
-    grid-template-rows: repeat(10, 45px);
+    grid-template-columns: repeat(10, 35px);
+    grid-template-rows: repeat(10, 35px);
 }
 .user-board > *,
 .enemy-board > * {
@@ -125,6 +125,13 @@ header {
 .start-game:hover {
     background-color: #a855f7;
     color: black;
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+        flex-direction: column;
+        gap: 5px;
+    }
 }
 
 .no-visibility {

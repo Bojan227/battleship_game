@@ -62,15 +62,15 @@ const domElements = (() => {
             );
 
             if (d === 'h') {
-                const shipWidth = z * 45;
+                const shipWidth = z * 35;
                 shipDiv.style.width = `${shipWidth}px`;
-                shipDiv.style.height = '45px';
+                shipDiv.style.height = '35px';
                 shipDiv.setAttribute('data-direction', 'h');
 
                 firstDiv.appendChild(shipDiv);
             } else {
-                const shipHeight = z * 45;
-                shipDiv.style.width = '45px';
+                const shipHeight = z * 35;
+                shipDiv.style.width = '35px';
                 shipDiv.style.height = `${shipHeight}px`;
                 shipDiv.setAttribute('data-direction', 'v');
 
