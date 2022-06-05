@@ -4,7 +4,7 @@ Battleship game where you get a chance to play against your computer.
 
 **Link to project:** https://bojan227.github.io/battleship_game/
 
-![alt tag](https://prnt.sc/DpGFN2jY8rel)
+![alt tag](https://prnt.sc/I4YGMN-w8hxo/1200/650)
 
 ## How It's Made: 
 **Tech used:** HTML, CSS, JavaScript
