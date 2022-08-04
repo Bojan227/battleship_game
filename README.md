@@ -1,6 +1,6 @@
 #Battleship Game
 
-Battleship game where you get a chance to play against your computer.
+Can you hit all enemy battleships before he gets yours? 
 
 **Link to project:** https://bojan227.github.io/battleship_game/
 
