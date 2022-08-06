@@ -226,7 +226,7 @@ const gameflow = (() => {
     let topCounter = 1;
     let botCounter = 1;
 
-    // One bug where computer player making one less move
+    
 
     function handleAttacks() {
         container.addEventListener('click', (e) => {
